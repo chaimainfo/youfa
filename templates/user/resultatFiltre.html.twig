@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Filtre{% endblock %}
+
+{% block content %}
+    <div >
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Le nombre est {{ nombre }}</h4>
+
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Login</th>
+                        <th>Nom</th>
+                        <th>Presnom</th>
+                        <th>Email</th>
+                        <th>Image</th>
+                        <th>IsActive</th>
+                        <th>DerniereCnx</th>
+                        <th>Role</th>
+                        <th>Poste</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ i }}</td>
+                            <td>{{ user.login }}</td>
+                            <td>{{ user.nom }}</td>
+                            <td>{{ user.presnom }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.image }}</td>
+                            <td>{{ user.isActive ? 'Yes' : 'No' }}</td>
+                            <td>{{ user.derniereCnx ? user.derniereCnx|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ user.role }}</td>
+                            <td>{{ user.poste.nom }}</td>
+                        </tr>
+                        {% set i=i+1 %}
+                    {% else %}
+                        <tr>
+                            <td colspan="11">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+
+    <form method="post" action="{{ path('affectationDC',{'id':id}) }}">
+        <label>{{ droitAccee.titre }}</label><br>
+        {% for cda in compoDejaAffecter %}
+            <input type="checkbox" checked disabled name="cda[]" value="{{ cda.nom }}">{{ cda.nom }}  <br>
+        {% endfor %}
+        {% if longeur > 1 %}
+        {% for c in compo_a_affecter %}
+            <input type="checkbox" name="c[]" value="{{ c.nom }}">{{ c.nom }}  <br>
+        {% endfor %}
+        <button type="submit">save</button>
+        {% else %}
+
+            <p style="color: #aacd4e">vous avez le droit " {{ droitAccee.titre }} " sur tout les composants de tableau " {{ droitAccee.tableau.nom }} " </p>
+
+        {% endif %}
+        <a href="{{ path('droit_accee_index') }}">back to list</a>
+    </form>
+{% endblock %}

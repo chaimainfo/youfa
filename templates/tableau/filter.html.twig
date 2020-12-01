@@ -1,0 +1,62 @@
+
+{% extends 'base.html.twig' %}
+{% block title %}Filtre{% endblock %}
+
+{% block content %}
+
+    <div >
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Filtrer le Tableau</h4>
+                <!--<button class="btn btn-danger1" onClick="test()" style="margin-top: 20px;" >Filtrage <i class="material-icons">filter_list</i></button>-->
+            </div>
+            <div class="card-body table-responsive">
+
+                <form method="post" action="{{ path('filtrage',{'type':typeTab.type}) }}">
+                    {% for c in composants %}
+                        {% if c.type=='text' or c.type=='nombre' %}
+                            {{ c.nom }}: <input type="text" name="{{ c.nom }}"><br>
+                        {% elseif c.type=='liste' %}
+                            {{ c.nom }}: <select name="{{ c.nom }}">
+                            {# {% for l in c.liste %}#}
+                            {%  if c.liste.titre==c.nom %}
+                                <option value=""></option>
+                                {% for co in c.liste.contenu %}
+                                    <option value="{{ co }}">{{ co }} </option>
+                                {% endfor %}
+                            {% endif %}
+                            {# {% endfor %}#}
+                            </select><br>
+                        {% elseif c.type=='oui/non' %}
+                            {{ c.nom }}:<input type="checkbox" name="{{ c.nom }}"><br>
+                        {% endif %}
+                    {% endfor %}
+                    Crée entre </label>
+                    <input type="date" id="start" name="dateDebut"
+                           value="2019-07-01"
+                           min="2019-07-01" max="2030-12-31">  et <input type="date" id="start" name="dateFin"
+                                                                        value="2019-07-15"
+                                                                        min="2019-07-01" max="2030-12-31"> <br>
+                    <button type="submit"  class="btn">Filtrer</button>
+                </form>
+                {#<form method="post" action="{{ path('faireFiltre',{'type':typeTab.type}) }}">
+                    <label>Selon quel(s) composant(s) ?</label><br>
+                    {% for c in composants %}
+                        <input type="checkbox" name="{{ c.nom }}"  value="{{ c.nom }}">{{ c.nom }}<br>
+                    {% endfor %}
+                    <button type="submit"  class="btn">Filtrer</button>
+                </form>#}
+                <a class="demo-google-material-icon" href="{{ path('showTab',{'type':typeTab.type}) }}">
+                    <i style="cursor: pointer;" class="material-icons"> keyboard_backspace</i>
+                </a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+

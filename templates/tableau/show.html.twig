@@ -1,0 +1,303 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau{% endblock %}
+{% block stylesheet %}
+
+{% endblock %}
+{% block content %}
+    {#  <a href="{{ path('tableau_index') }}">back to list</a>
+      <a href="{{ path('tableau_edit', {'id': tableau.id}) }}">edit</a>
+  {{ include('tableau/_delete_form.html.twig') }}#}
+    <div>
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">{{ typeTab.type }}</h4>
+                {% if app.user.poste.nom =='chef' %}
+                    <a class="btn btn-info " href="{{ path('ligne_new') }}"><i class="material-icons">person_add</i>
+                        <span
+                                class="icon-name">Nouveau </span></a>
+                {% else %}
+                    {% if modifier %}
+                        <a class="btn btn-info " href="{{ path('ligne_new') }}"><i class="material-icons">person_add</i>
+                            <span class="icon-name">Nouveau </span></a>
+                    {% endif %}
+                {% endif %}
+
+
+                <button class="btn btn-danger1" style="margin-top: 20px;"><a
+                            href="{{ path('filtrage_tab',{'type':typeTab.type}) }}">Filtrage </a><i
+                            class="material-icons">filter_list</i>
+                </button>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover">
+                    <!--<thead class="text-warning">
+                    <th>ID</th>
+
+                    </thead>-->
+                    <tbody>
+                    <tr>
+                        {% for c in composants %}
+                            <th>{{ c.nom }}</th>
+                        {% endfor %}
+                        <th>date de creation</th>
+                        <th>actions</th>
+
+                    </tr>
+
+                    {#-------------------------------------------------------------------------------------------------------#}
+                    {% if app.user.poste.nom !='chef' %}
+                        {% for l in lignes %}
+                            <tr>
+                                <form method="post" action="{{ path('saveTab',{'id':l.id}) }}">
+
+                                    {% for c in compLigne %}
+
+                                        {% if c.tableau.id == l.id %}
+
+                                            <td>
+
+                                                {% if c.type=='liste' %}
+                                                    {% if c.liste %}
+                                                        {% if c.enabled==1 %}
+                                                            <select name="{{ c.nom }}">
+                                                                {% for x in c.liste.contenu %}
+                                                                    {% if c.contenu==x %}
+                                                                        <option selected>{{ x }}</option>
+                                                                    {% else %}
+                                                                        <option>{{ x }}</option>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+                                                        {% else %}
+                                                            <select name="{{ c.nom }}" disabled>
+                                                                {% for x in c.liste.contenu %}
+                                                                    {% if c.contenu==x %}
+                                                                        <option selected>{{ x }}</option>
+                                                                    {% else %}
+                                                                        <option>
+                                                                            <tooltip>{{ x }}</tooltip>
+                                                                        </option>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% elseif c.type=='oui/non' %}
+
+                                                    {% if c.enabled==1 %}
+
+                                                        {% if c.contenu=='on' %}
+                                                            <input type="checkbox" checked name="{{ c.nom }}">
+                                                        {% else %}
+                                                            <input type="checkbox" name="{{ c.nom }}">
+                                                        {% endif %}
+
+                                                    {% else %}
+                                                        {% if c.contenu=='on' %}
+                                                            <input type="checkbox" checked name="{{ c.nom }}" disabled>
+                                                        {% else %}
+                                                            <input type="checkbox" name="{{ c.nom }}" disabled>
+                                                        {% endif %}
+
+                                                    {% endif %}
+                                                {% else %}
+
+                                                    {% if c.enabled ==1 %}
+
+
+                                                        <input type="text" name="{{ c.nom }}" value="{{ c.contenu }}">
+                                                    {% else %}
+                                                        <input type="text" name="{{ c.nom }}" value="{{ c.contenu }}"
+                                                               disabled>
+                                                    {% endif %}
+
+                                                {% endif %}
+                                            </td>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                    <td>{{ l.dateCreation|date('d F Y, h:i:s A') }}</td>
+                                    <td>
+                                        <button type="submit">save</button>
+                                        <br>
+                                        {% if modifier %}
+
+                                            <a class="demo-google-material-icon"
+                                               href="{{ path('remove_ligne',{'id':l.id}) }}"
+                                               onclick="return confirm('Etes-vous sur de vouloir supprimer cet article !')">
+                                                <i style="cursor: pointer;" class="material-icons">delete</i>
+                                            </a>
+                                        {% endif %}
+                                    </td>
+
+                                </form>
+                            </tr>
+
+                            </tr>
+                            <div class="modal fade" id="infos">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <h4 class="modal-title" id="smallModalLabel1"
+                                            style="color: red; font-size: 75px">
+                                            <i class="material-icons" style="font-size: 75px">block</i>
+                                        </h4>
+                                        <div class="modal-body">
+                                            Etes-vous sur de vouloir supprimer cet article !
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-info" data-dismiss="modal"
+                                                    href="{{ path('remove_ligne',{'id':l.id}) }}">OUI
+                                            </button>
+                                            <button class="btn btn-info" data-dismiss="modal">NON</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    {% else %}
+
+                        {% for l in lignes %}
+                            <tr>
+                                <form method="post" action="{{ path('saveTab',{'id':l.id}) }}">
+                                    {% for c in compLigne %}
+                                        {% if c.tableau.id == l.id %}
+                                            <td>
+                                                {% if c.type=='liste' %}
+
+                                                    {% if c.liste %}
+
+                                                        {% if  c.lastEditor %}
+                                                            <div data-tooltip="{{ c.lastEditor.login }}">
+                                                                <select name="{{ c.nom }}"
+                                                                        data-tooltip="{{ c.lastEditor.login }}">
+                                                                    {% for x in c.liste.contenu %}
+                                                                        {% if c.contenu==x %}
+                                                                            <option selected>{{ x }}</option>
+                                                                        {% else %}
+                                                                            <option>{{ x }}</option>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </select>
+                                                            </div>
+                                                        {% else %}
+                                                            <select name="{{ c.nom }}">
+                                                                {% for x in c.liste.contenu %}
+                                                                    {% if c.contenu==x %}
+                                                                        <option selected>{{ x }}</option>
+                                                                    {% else %}
+                                                                        <option>{{ x }}</option>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </select>
+                                                        {% endif %}
+
+
+
+                                                    {% endif %}
+
+
+                                                {% elseif c.type=='oui/non' %}
+                                                    {% if c.lastEditor %}
+                                                        {% if c.contenu=='on' %}
+                                                            {% if c.lastEditor.login %}
+                                                                <input type="checkbox"
+                                                                       data-tooltip="{{ c.lastEditor.login }}" checked
+                                                                       name="{{ c.nom }}">
+                                                            {% else %}
+                                                                <input type="checkbox"
+                                                                       checked
+                                                                       name="{{ c.nom }}">
+                                                            {% endif %}
+                                                        {% else %}
+
+                                                            {% if c.lastEditor.login %}
+                                                                <input type="checkbox"
+                                                                       data-tooltip="{{ c.lastEditor.login }}"
+                                                                       name="{{ c.nom }}">
+                                                            {% else %}
+                                                                <input type="checkbox"
+
+                                                                       name="{{ c.nom }}">
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% else %}
+                                                        {% if c.contenu=='on' %}
+                                                            <input type="checkbox" checked name="{{ c.nom }}">
+                                                        {% else %}
+
+                                                            <input type="checkbox"
+
+                                                                   name="{{ c.nom }}">
+                                                        {% endif %}
+                                                    {% endif %}
+
+
+                                                {% else %}
+                                                   {# <div data-tooltip="{{ c.lastEditor.login }}">#}
+                                                        {% if c.lastEditor %}
+                                                        <div data-tooltip="{{ c.lastEditor.login }}">
+
+                                                            <input data-tooltip="{{ c.lastEditor.login }}" type="text"
+                                                                   name="{{ c.nom }}" value="{{ c.contenu }}">
+
+
+                                                        {% else %}
+                                                            <input type="text" name="{{ c.nom }}"
+                                                                   value="{{ c.contenu }}">
+                                                            </div>
+                                                        {% endif %}
+                                                   {# </div> #}
+                                                {% endif %}
+                                            </td>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                    <td>{{ l.dateCreation|date('d F Y, h:i:s A') }}</td>
+                                    <td>
+
+                                        <button type="submit">save</button>
+                                        <br>
+
+                                        <a class="demo-google-material-icon"
+                                           href="{{ path('remove_ligne',{'id':l.id}) }}"
+                                           onclick="return confirm('Etes-vous sur de vouloir supprimer cet article !')">
+                                            <i style="cursor: pointer;" class="material-icons">delete</i>
+                                        </a>
+                                    </td>
+
+                                </form>
+                            </tr>
+
+                            </tr>
+                            <div class="modal fade" id="infos">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <h4 class="modal-title" id="smallModalLabel1"
+                                            style="color: red; font-size: 75px">
+                                            <i class="material-icons" style="font-size: 75px">block</i>
+                                        </h4>
+                                        <div class="modal-body">
+                                            Etes-vous sur de vouloir supprimer cet article !
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-info" data-dismiss="modal"
+                                                    href="{{ path('remove_ligne',{'id':l.id}) }}">OUI
+                                            </button>
+                                            <button class="btn btn-info" data-dismiss="modal">NON</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+                <a class="demo-google-material-icon" href="{{ path('tableau_index') }}">
+                    <i style="cursor: pointer;" class="material-icons"> keyboard_backspace</i>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

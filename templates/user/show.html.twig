@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block content1 %}
+<div class="profile-page">
+
+
+    <div class="page-header header-filter" data-parallax="true" style="background-image:url('{{ asset('templates/images/sign5.jpg')}}'); "></div>
+
+    <div class="main main-raised">
+        <div class="profile-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto">
+                        <div class="profile">
+                            <div class="avatar">
+                                <img src="{{ asset('templates/images/zouhour.jpg')}}" alt="Circle Image" class="img-raised rounded-circle img-fluid">
+                            </div>
+                            <div class="profile-header" style="background-color: teal">
+                                <a style="color: inherit;" href="{{ path('user_edit', {'id': user.id}) }}">
+                                    <i class="material-icons" style="color: white; background-color: black; border-radius: 50%; padding: 15px; position: absolute; right: 15px; top: 25px">edit</i>
+                                </a>
+                            </div>
+                            <div class="name">
+                                <h3 class="title">{{ user.nom }}
+                                    {{ user.presnom }}</h3>
+                                <h6>{{ user.email }}</h6>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="description text-center">
+                    <h6 class="card-category text-gray">Poste :
+                        {{ user.poste.nom }}</h6>
+                    <!--<h4 class="card-title">Nom</h4>
+                    <h4 class="card-title">Prénom</h4>
+                    <h4 class="card-title">Email</h4>-->
+
+                    <p class="card-description">
+                        Login :
+                        {{ user.login }}
+                    </p>
+
+                    <p class="card-description">
+                        IsActive : {{ user.isActive ? 'Yes' : 'No' }}
+                    </p>
+                   {# <p class="card-description">
+                        DerniereCnx : {{ user.derniereCnx ? user.derniereCnx|date('Y-m-d H:i:s') : '' }}
+                    </p>#}
+                </div>
+                <div class="row">
+
+
+                </div>
+                <a class="demo-google-material-icon" href="{{ path('user_index') }}">
+                    <i style="cursor: pointer;" class="material-icons"> keyboard_backspace</i>
+                {{ include('user/_delete_form.html.twig') }}
+            </div>
+        </div>
+
+
+        <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+
+
+
+{% endblock %}
+{% block javascripts %}
+
+
+ {% endblock %}

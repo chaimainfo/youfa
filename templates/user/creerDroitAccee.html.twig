@@ -1,0 +1,43 @@
+
+{% extends 'base.html.twig' %}
+{% block title %}Tableau des Admins{% endblock %}
+
+{% block content %}
+<form action="{{ path('affectation',{'id':id}) }}" method="post">
+    <div >
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">{{ poste.nom }}</h4>
+
+                <!--<button class="btn btn-danger1" onClick="test()" style="margin-top: 20px;" >Filtrage <i class="material-icons">filter_list</i></button>-->
+            </div>
+            <div class="card-body table-responsive">
+                <h3>Choisissez un droit d'accee</h3><br>
+                {% for d in droits %}
+                    <input type="radio" name="droit" value="{{ d.id }}">{{ d.titre }} <br>
+                {% endfor %}
+                <h3>Quel Tableau ?</h3><br>
+                {% for t in typeTab %}
+                    <input type="radio" name="tableau" value="{{ t.id }}">{{ t.type }} <br>
+                {% endfor %}
+                <h3>Liste Des Composants</h3><br>
+                {% for c in composants %}
+                    <input type="checkbox" name="comp[]" value="{{ c.nom }}">{{ c.nom }}<br>
+                {% endfor %}
+                <hr>
+                <button type="submit">save</button><br>
+
+                <a class="demo-google-material-icon" href="{{ path('poste_index') }}">
+                    <i style="cursor: pointer;" class="material-icons"> keyboard_backspace</i>
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+
+
+
+
+

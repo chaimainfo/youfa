@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <h1>{{ tableau.nom }}</h1>
+<form method="post" >
+    <table class="table">
+        <tbody>
+        <tr>
+
+            {% for c in tableau.composants %}
+                <th>{{ c.nom }}</th>
+            {% endfor %}
+
+        </tr>
+        <tr>
+
+            {% for c in tableau.composants %}
+            <td>
+                {% if c.type == 'liste' %}
+                    <select name="{{ c.liste.titre }}">
+                        {% for x in c.liste.contenu %}
+                            <option>{{ x }} </option>
+                        {% endfor %}
+                    </select>
+
+                 {% elseif c.type=='oui/non' %}
+                     <input type="checkbox" name="{{ c.nom }}" >
+                 {% else %}
+                     <input type="{{ c.type }}" name="{{ c.nom }}" >
+                {% endif %}
+            </td>
+            {% endfor %}
+
+<input type="n">
+        </tbody>
+    </table>
+
+    <a class="demo-google-material-icon" href="{{ path('tableau_index') }}">
+        <i style="cursor: pointer;" class="material-icons"> keyboard_backspace</i>
+    </a>
+
+    {{ include('tableau/_delete_form.html.twig') }}
+</form>
+{% endblock%}

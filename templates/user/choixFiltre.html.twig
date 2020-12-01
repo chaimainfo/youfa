@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+
+
+<div >
+    <div class="card">
+        <div class="card-header card-header-warning">
+            <h4 class="card-title">Filtrer</h4>
+            <!--<button class="btn btn-danger1" onClick="test()" style="margin-top: 20px;" >Filtrage <i class="material-icons">filter_list</i></button>-->
+        </div>
+        <div class="card-body table-responsive">
+
+            <form method="post" action="{{ path('faire_filtre') }}">
+                {#login: <input type="text" name="login"><br>#}
+                Nom: <input type="text" name="nom"><br>
+                prenom: <input type="text" name="presnom"><br>
+                email: <input type="email" name="email"><br>
+                active: <select name="isActive">
+                    <option value=""></option>
+                    <option value="1">YES</option>
+                    <option value="0">NO</option>
+                </select><br>
+                Role: <select name="role">
+                    <option value=""></option>
+                    <option value="role_admin">Admin</option>
+                    <option value="role_user">Super Admin</option>
+                </select><br>
+                Poste: <select name="poste">
+                    <option value=""></option>
+                    {% for p in postes %}
+                        <option value="{{ p.id }}">{{ p.nom }}</option>
+                    {% endfor %}
+                </select><br>
+                <button type="submit">filtrer</button>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

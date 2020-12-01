@@ -1,0 +1,86 @@
+
+{% extends 'base.html.twig' %}
+{% block title %}Filtre{% endblock %}
+
+{% block content %}
+
+    <div >
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Le nombre de {{ typeTab.type }} est {{ nombre }}</h4>
+                <!--<button class="btn btn-danger1" onClick="test()" style="margin-top: 20px;" >Filtrage <i class="material-icons">filter_list</i></button>-->
+            </div>
+            <div class="card-body table-responsive">
+
+                <table class="table table-hover">
+                    <!--<thead class="text-warning">
+                    <th>ID</th>
+
+                    </thead>-->
+                    <tbody>
+                    <tr>
+                        {% for c in composants %}
+                            <th>{{ c.nom }}</th>
+                        {% endfor %}
+                        <th>date de création</th>
+
+                    </tr>
+                    {% for l in lignes %}
+                        <tr>
+                            {% for c in compLigne %}
+
+                                {% if c.tableau.id == l.id %}
+
+                                    <td>
+
+                                        {% if c.type=='liste' %}
+                                            {% if c.liste %}
+                                                <select name="{{ c.nom }}" disabled>
+                                                    {% for x in c.liste.contenu %}
+                                                        {% if c.contenu==x %}
+                                                            <option selected>{{ x }}</option>
+                                                        {% else %}
+                                                            <option>{{ x }}</option>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </select>
+                                            {% endif %}
+                                        {% elseif c.type=='oui/non' %}
+                                            {% if c.contenu=='on' %}
+                                                <input type="checkbox" checked name="{{ c.nom }}" disabled>
+                                            {% else %}
+                                                <input type="checkbox" name="{{ c.nom }}" disabled>
+                                            {% endif %}
+
+                                        {% else %}
+                                            <label>{{ c.contenu }}</label>
+
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+
+                            {% endfor %}
+                            <td>{{ l.dateCreation|date('d/m/Y') }}</td>
+
+                        </tr>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <a class="demo-google-material-icon" href="{{ path('filtrage',{'type':typeTab.type}) }}">
+                    <i style="cursor: pointer;" class="material-icons"> keyboard_backspace</i>
+                </a>
+            </div>
+
+
+
+    </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+{% block title %}Tableau des Admins{% endblock %}
+
+{% block content %}
+
+    <div>
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">{{ poste.nom }}</h4>
+
+                <!--<button class="btn btn-danger1" onClick="test()" style="margin-top: 20px;" >Filtrage <i class="material-icons">filter_list</i></button>-->
+            </div>
+            <div class="card-body table-responsive">
+                <form>
+
+                    <h4>{{ titre_droit }}</h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>
+                                Composant
+                            </th>
+                            <th>
+                                Tableau
+                            </th>
+                            <th>
+                                Action
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                {% for c in composants %}
+                                    <ol>{{ c.nom }}</ol>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for c in composants %}
+                                    <ol>{% for t in c.typestab %}{{ t.type }}<br>{% endfor %}</ol>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for c in composants %}
+                                    <ol>  <a href="{{ path('supprimerComposant',{'id':c.id, 'listeId':liste.id}) }}" onclick="return confirm('Etes-vous sur de vouloir supprimer cet article !')">  <i style="cursor: pointer;" class="material-icons">delete</i></a></ol>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <a class="demo-google-material-icon" href="{{ path('poste_show',{'id':poste.id}) }}">
+                        <i style="cursor: pointer;" class="material-icons"> keyboard_backspace</i>
+                    </a>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+{% block title %}Tableau des Admins{% endblock %}
+
+{% block content %}
+
+    <div>
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Liste des postes</h4>
+                <a class="btn btn-info pull-right" href="{{ path('poste_new') }}"><i
+                            class="material-icons">person_add</i> <span class="icon-name">Nouveau Poste</span></a>
+                </span>
+                <!--<button class="btn btn-danger1" onClick="test()" style="margin-top: 20px;" >Filtrage <i class="material-icons">filter_list</i></button>-->
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover" class="table table-bordered table-hover">
+                    <thead class="text-warning1">
+
+                    <tr class="dnd-moved">
+                        <th>Nom</th>
+                        <th>actions</th>
+
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    {% for poste in postes %}
+                        <tr class="dnd-moved info">
+
+                            <td>{{ poste.nom }}</td>
+                            {#<td>
+                                 <a href="{{ path('poste_show', {'id': poste.id}) }}">show</a><br/>
+                                 <a href="{{ path('poste_edit', {'id': poste.id}) }}">edit</a> <br/>
+                                 <a href="{{ path('affecterPosteDroit', {'id': poste.id}) }}">affecter droits d'accée</a>
+                             </td>
+                        #}
+
+                            <td>
+                                {#<a class="demo-google-material-icon" href="{{ path('poste_edit', {'id': poste.id}) }}">
+                                    <i style="cursor: pointer;" class="material-icons">edit</i>
+                                </a>#}
+                                <a class="demo-google-material-icon" href="{{ path('poste_show', {'id': poste.id}) }}">
+                                    <i style="cursor: pointer;" class="material-icons">description</i>
+                                </a>
+                                {#<a  class="demo-google-material-icon" href="{{ path('affecterPosteDroit', {'id': poste.id}) }}">
+                                <i style="cursor: pointer;" class="material-icons">description</i></a>#}
+                                {% if app.user.poste.nom =='chef' %}
+                                    <a class="demo-google-material-icon" href="{{ path('poste_remove', {'id': poste.id}) }}" onclick="return confirm('Etes-vous sur de vouloir supprimer cet article !')">
+                                        <i style="cursor: pointer;" class="material-icons">delete</i>
+                                    </a>
+                                <a href="{{ path('affectation', {'id': poste.id}) }}">
+                                    affecter droits d'accée</a>
+
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="11">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+

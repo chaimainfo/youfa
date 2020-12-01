@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Connexion</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{{ asset('templates/fonts/material-icon/css/material-design-iconic-font.min.css ')}}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{{ asset('templates/css/style.css')}}">
+</head>
+<body>
+
+{% block body %}
+
+    <div class="main">
+
+        <section class="signup">
+            <!-- <img src="images/signup-bg.jpg" alt=""> -->
+            <div class="container">
+                <div class="signup-content">
+                    <form action="{{ path('connexion') }}" method="post" id="signup-form" class="signup-form">
+                        <h2 class="form-title">LOGIN</h2>
+                        <div class="form-group">
+
+                            <!--<input type="text" class="form-input" name="name" id="name" placeholder="CIN ..."  required name="_username" />-->
+                            <input placeholder="CIN ..." class="form-control" type="text"  required name="_username"  id="name" class="form-input" name="name">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <!--<input type="password" class="form-input" name="password" id="password" placeholder="Mot de passe ..." required name="_password" />-->
+                            <input placeholder="mot de passe ..."  class="form-control" type="password" required name="_password" id="password" >
+                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <!--<button type="submit" class="btn btn-success" id="submit" class="form-submit">Connexion</button>-->
+                            <!--<input type="submit" name="submit" id="submit" class="form-submit" value="Sign In"/>-->
+
+
+                            <input type="hidden" name="_csrf_token"
+                                   value="{{ csrf_token('authenticate') }}"
+                            >
+                            <button type="submit" class="btn btn-success" id="submit" formaction="{{ path('tableau_index') }}" ><a href="{{ path('tableau_index') }}">Connexion</a></button>
+
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src="{{ asset('templates/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('templates/js/main.js')}}"></script>
+{% endblock %}
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

@@ -1,0 +1,88 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <div >
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Liste des Droits d'accès</h4>
+                <a class="btn btn-info pull-right" href="{{ path('droit_accee_new') }}"><i class="material-icons">person_add</i> <span class="icon-name">Nouveau Droit</span></a>
+                </span>
+               <!-- <button class="btn btn-danger1" onClick="test()" style="margin-top: 20px;" >Filtrage <i class="material-icons">filter_list</i></button>-->
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover" class="table table-bordered table-hover">
+                    <thead class="text-warning1">
+
+                    <tr class="dnd-moved">
+
+                        <th>Titre</th>
+                        <th>Actions</th>
+
+                    </tr>
+
+                    </thead>
+
+                        <tbody>
+                        {% for droit_accee in droitAccees %}
+                            <tr>
+
+                                <td>{{ droit_accee.titre }}</td>
+                                {#<td>
+                                    <a href="{{ path('droit_accee_show', {'id': droit_accee.id}) }}">show</a>
+                                     <a href="{{ path('droit_accee_edit', {'id': droit_accee.id}) }}">edit</a>
+                                    <a href="{{ path('droit_accee_remove', {'id': droit_accee.id}) }}">remove</a>
+                                </td>#}
+                                <td>
+                                    {#<a class="demo-google-material-icon" href="{{ path('removeListe',{'id':li.id}) }}">
+                                        <i style="cursor: pointer;" class="material-icons">delete</i>
+                                    </a>#}
+
+                                    <a class="demo-google-material-icon" href="{{ path('droit_accee_show', {'id': droit_accee.id}) }}">
+                                        <i style="cursor: pointer;" class="material-icons">description</i>
+                                    </a>
+                                    <a   class="demo-google-material-icon" href="{{ path('droit_accee_remove', {'id': droit_accee.id}) }}" onclick="return confirm('Etes-vous sur de vouloir supprimer cet article !')">
+                                        <i  style="cursor: pointer;" class="material-icons">delete</i>
+
+                                    </a>
+                                </td>
+                            </tr>
+                            <div class="modal fade" id="infos">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">x</button>
+                                            <h4 class="modal-title">Confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            Etes-vous sur de vouloir supprimer cet article !
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button  class="btn btn-info" data-dismiss="modal" href="{{ path('droit_accee_remove', {'id': droit_accee.id}) }} ">OUI</button>
+                                            <button class="btn btn-info" data-dismiss="modal">NON</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        {% else %}
+                            <tr>
+                                <td colspan="3">no records found</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+
+
+                </table>
+                {#<a href="{{ path('droit_accee_new') }}">Create new</a><br>#}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

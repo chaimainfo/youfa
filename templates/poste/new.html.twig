@@ -1,0 +1,24 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste index{% endblock %}
+
+{% block content %}
+    <div >
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Créer un nouveau Poste</h4>
+
+            </div>
+            <div class="card-body table-responsive">
+                {{ include('poste/_form.html.twig') }}
+
+
+                <a class="demo-google-material-icon" href="{{ path('poste_index') }}">
+                    <i style="cursor: pointer;" class="material-icons"> keyboard_backspace</i>
+                </a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

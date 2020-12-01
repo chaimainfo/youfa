@@ -1,0 +1,62 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Afficher {% endblock %}
+
+{% block content %}
+    <div >
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">{{ droit_accee.titre }}</h4>
+
+                <!-- <button class="btn btn-danger1" onClick="test()" style="margin-top: 20px;" >Filtrage <i class="material-icons">filter_list</i></button>-->
+            </div>
+            <div class="card-body table-responsive">
+                {% for l in liste %}
+                <table class="table table-hover" class="table table-bordered table-hover">
+
+                    <tbody>
+                    {% if l.poste.nom != 'chef' %}
+                    <tr>
+
+                        <th>composants</th>
+                        <th>Tableau</th>
+                        <th>Poste</th>
+
+
+                    </tr>
+
+                    <tr>
+
+                        <td>
+                            {% for c in l.composants %}
+                                {{ c.nom }} <br>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {{l.typeTab.type}}
+                        </td>
+                        <td>
+                            {{l.poste.nom}}
+                        </td>
+                        {% endif %}
+                    </tbody>
+
+
+                </table>
+                {% endfor %}
+                <a class="demo-google-material-icon" href="{{ path('droit_accee_index') }}">
+                    <i style="cursor: pointer;" class="material-icons"> keyboard_backspace</i>
+                </a>
+
+
+                {# <a href="{{ path('droit_accee_edit', {'id': droit_accee.id}) }}">edit</a>#}
+
+                {{ include('droit_accee/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

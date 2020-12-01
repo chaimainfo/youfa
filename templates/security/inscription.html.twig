@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form by Colorlib</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{{ asset('templates/fonts/material-icon/css/material-design-iconic-font.min.css') }}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{{ asset('templates/css/style1.css') }}">
+</head>
+<body>
+{% block body %}
+
+
+<div class="main">
+
+    <section class="signup">
+        <!-- <img src="images/signup-bg.jpg" alt=""> -->
+        <div class="container">
+            <div class="signup-content">
+                {{ form_start(form) }}
+                <h2 class="form-title">Create account</h2>
+                <div class="form-group">
+
+                    {{ form_row(form.login,{'label':'Login : '}) }}
+                </div>
+                <div class="form-group" id="2">
+                    {{ form_row(form.password,{'label':'Password : '}) }}
+                </div>
+                <div class="form-group" id="3">
+                    {{ form_row(form.nom,{'label':'Nom : '}) }}
+
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.presnom,{'label':'Prénom : '}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.email,{'label':'Email : '}) }}
+                </div>
+
+
+                {# <div class="form-group">
+                     <label>Role : </label>
+                     <input type="radio" id="r" name="ROLE" value="role_admin">Super Admin
+                     <input type="radio" id="r" name="ROLE" value="role_user">Admin </div>#}
+
+                <div class="form-group">
+                    {#{{ form_row(form.poste,{'label':'Poste : '}) }}#}
+                   <label>poste:</label> <select name="poste">
+                        {% for p in postes %}
+                            <option value="{{ p.id }}">{{ p.nom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Confirmer</button>
+                    <br/>
+                    <!-- return $this->redirectToRoute('user_index');-->
+                </div>
+                {{ form_end(form) }}
+
+                <a class="demo-google-material-icon" href="{{ path('user_index') }}">
+                    <i style="cursor: pointer;" class="material-icons"> Retour</i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- JS -->
+<script>
+    function myFunction() {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+    }
+</script>
+<script src="{{ asset('templates/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('templates/js/main.js') }}"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+{% endblock %}
+</html>
+

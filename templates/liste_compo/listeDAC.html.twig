@@ -1,0 +1,76 @@
+
+{% extends 'base.html.twig' %}
+{% block title %}Les Droits{% endblock %}
+
+{% block content %}
+
+    <div >
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Affecter Des Droits</h4>
+
+            </div>
+            <div class="card-body table-responsive">
+                <form action="{{ path('affecterDAC',{'id':poste.id,'type':tab} ) }}" method="post">
+
+                    {% if tab=='rien' %}
+                        <label>Quel type de tableau ?</label><br>
+                        {% for t in typeTab %}
+                            <a href="{{ path('affectation1',{'type':t.type , 'idp':poste.id }) }}">{{ t.type }}</a><br>
+                        {% endfor %}
+                    {% else %}
+                        {% for t in typeTab %}
+
+                            <a href="{{ path('affectation1',{'type':t.type , 'idp':poste.id }) }}"
+                               aria-disabled="true">{{ t.type }}</a><br>
+                        {% endfor %}
+                    {% endif %}
+                    {% if tab=='rien' %}
+                        <hr>
+
+                        <table>
+                            {% for c in composants %}
+                                <tr>
+                                    <td>
+                                        <label>{{ c.nom }}</label>
+                                    </td>
+                                    <td>
+                                        {% for d in droits %}
+                                            <input type="radio" name="{{ c.nom }}[]" value="{{ d.titre }}" disabled>
+                                            {{ d.titre }}<br>
+                                        {% endfor %}
+                                        <hr>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <button type="submit">save</button>
+
+                    {% else %}
+                        <hr>
+                        <table>
+                            {% for c in composants %}
+                                <tr>
+                                    <td>
+                                        <label>{{ c.nom }}</label>
+                                    </td>
+                                    <td>
+                                        {% for d in droits %}
+                                            <input type="radio" name="{{ c.nom }}[]" value="{{ d.titre }}">
+                                            {{ d.titre }}<br>
+                                        {% endfor %}
+                                        <hr>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <button class="btnn" type="submit">save</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}

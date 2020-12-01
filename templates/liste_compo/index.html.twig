@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <div >
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Affecter Droits</h4>
+
+                
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover" class="table table-bordered table-hover">
+                    <thead class="text-warning1">
+
+                    <tr class="dnd-moved">
+
+                        <th></th>
+                        <th>Nom du Poste</th>
+                        <th>Droit d'Accee</th>
+                        <th>Tableau</th>
+                        <th>Composants</th>
+                        <th>Actions sur la liste</th>
+
+                    </tr>
+
+                    </thead>
+                    {% for li in listes %}
+                    <tbody>
+                    {% if li.poste.nom != 'chef' %}
+                    {% set i=i+1 %}
+                    <td>{{ i  }}</td>
+                    <td>{{ li.poste.nom }}</td>
+                    <td>{{ li.droitAccee.titre }}</td>
+                    <td>{{ li.typeTab.type }}</td>
+                    <td>
+                        {% for c in li.composants %}
+                            {{ c.nom }}<br>
+
+                        {% endfor %}
+                    </td>
+                            <td>
+
+                                <a   class="demo-google-material-icon" href="{{ path('removeListe',{'id':li.id}) }}" onclick="return confirm('Etes-vous sur de vouloir supprimer cet article !')">
+                                    <i  style="cursor: pointer;" class="material-icons">delete</i>
+
+                                </a>
+                                <a class="demo-google-material-icon" href="{{ path('editListe',{'id':li.id}) }}">
+                                    <i style="cursor: pointer;" class="material-icons">edit</i>
+                                </a></td>
+                    {% endif %}
+                        {#</td>#}
+                    <div class="modal fade" id="infos">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">x</button>
+                                    <h4 class="modal-title">Confirmation</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Etes-vous sur de vouloir supprimer cet article !
+                                </div>
+                                <div class="modal-footer">
+                                    <button  class="btn btn-info" data-dismiss="modal" href="{{ path('removeListe',{'id':li.id}) }}" >OUI</button>
+                                    <button class="btn btn-info" data-dismiss="modal">NON</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </tbody>
+
+                    {% endfor %}
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

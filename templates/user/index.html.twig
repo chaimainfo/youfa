@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+{% block title %}Tableau des Admins{% endblock %}
+
+{% block content %}
+<form method="post" action="{{ path('user_filtre')  }}">
+    <div >
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Users</h4>
+                <a class="btn btn-info " href="{{ path('inscription') }}"><i class="material-icons">person_add</i> <span class="icon-name">Nouveau responsable</span></a>
+                </span>
+                <button class="btn btn-danger"  style="margin-top: 20px;" type="submit">Filtrage<i class="material-icons">filter_list</i></button>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover" class="table table-bordered table-hover">
+                    <thead class="text-warning1">
+
+                    <tr class="dnd-moved">
+
+
+                        <th>Login</th>
+
+                        <th>Nom</th>
+                        <th>Presnom</th>
+                        <th>Email</th>
+                        <th>Image</th>
+                        <th>IsActive</th>
+                        <th>DerniereCnx</th>
+                        <th>Role</th>
+                        <th>Poste</th>
+                        <th>actions</th>
+                     </tr>
+
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr class= "dnd-moved info">
+
+                            <td>{{ user.login }}</td>
+
+                            <td>{{ user.nom }}</td>
+                            <td>{{ user.presnom }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.image }}</td>
+                            <td>{{ user.isActive ? 'Yes' : 'No' }}</td>
+                            <td>{{ user.derniereCnx ? user.derniereCnx|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ user.role }}</td>
+                            <td>{{ user.poste.nom }}</td>
+                            {#<td>
+                                <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
+                                <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+
+                            </td>#}
+                            <td>
+                                <a class="demo-google-material-icon" href="{{ path('user_edit', {'id': user.id}) }}">
+                                    <i style="cursor: pointer;" class="material-icons">edit</i>
+                                </a>
+                            <a class="demo-google-material-icon" href="{{ path('user_show', {'id': user.id}) }}">
+                                <i style="cursor: pointer;" class="material-icons">description</i>
+                            </a>
+                                {#<a class="demo-google-material-icon" href="{{ path('user_delete', {'id': user.id}) }}">
+                                    <i style="cursor: pointer;" class="material-icons">delete</i>#}
+                            </td>
+                        </tr>
+
+                    {% else %}
+                        <tr>
+                            <td colspan="11">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}

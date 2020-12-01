@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% if empty %}
+        <p>creer votre liste des droits d'accées d'abord </p>
+         <a href="{{ path('droit_accee_new') }}">créer droits d'accée</a><br>
+        <a href="{{ path('poste_index',{'id':id}) }}">liste de postes</a>
+    {% else %}
+    <form action="{{ path('affecterPosteDroit',{'id':id}) }}" method="post">
+    <label>{{ posteName }}</label><br>
+        <table class="table">
+            <tbody>
+<tr>
+
+    <td>
+    {% for t in tab %}
+
+
+        <input type="checkbox" name="droit[]" value="{{ t.titre }}"> {{ t.titre }}<br>
+
+
+    {% endfor %}
+    </td>
+    <td>
+    {% for t in tab %}
+
+
+        <label> {{ t.tableau.nom }}</label><br>
+
+
+    {% endfor %}
+    </td>
+</tr>
+            </tbody>
+        </table>
+            <button type="submit">submit</button>
+            <a href="{{ path('poste_index',{'id':id}) }}">liste de postes</a>
+
+    </form>
+    {% endif %}
+
+{% endblock %}

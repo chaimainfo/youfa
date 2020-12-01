@@ -1,0 +1,37 @@
+
+{% extends 'base.html.twig' %}
+{% block title %}Tableau des Admins{% endblock %}
+
+{% block content %}
+
+    <div >
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Filtrer le Tableau</h4>
+                <!--<button class="btn btn-danger1" onClick="test()" style="margin-top: 20px;" >Filtrage <i class="material-icons">filter_list</i></button>-->
+            </div>
+            <div class="card-body table-responsive">
+
+                <form method="post" action="{{ path('filtrage',{'type':typeTab.type}) }}">
+                    <label>Entrer les critères de filtrage :</label><br>
+                    {% for c in comp %}
+                        {{ c }}: <label>
+                        <input type="text" name="{{ c }}">
+                    </label> <br>
+                    {% endfor %}
+                    <button type="submit" class="btn">Faire le filtre</button>
+                </form>
+                <a class="demo-google-material-icon" href="{{ path('filtrage_tab',{'type':typeTab.type}) }}">
+                    <i style="cursor: pointer;" class="material-icons"> keyboard_backspace</i>
+                </a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+

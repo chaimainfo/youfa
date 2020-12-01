@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste index{% endblock %}
+
+{% block content %}
+    <div >
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Liste</h4>
+               {# <a class="btn btn-info pull-right" href="{{ path('liste_new',{'titre': liste.titre}) }}"><i
+                            class="material-icons">person_add</i> <span class="icon-name">Nouveau Liste</span></a>
+                </span>#}
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover" class="table table-bordered table-hover">
+                    <thead class="text-warning1" >
+
+                    <tr class="dnd-moved">
+
+                        <th>Titre</th>
+                        <th>Contenu</th>
+                        <th>actions</th>
+                    </tr>
+
+
+                    </thead>
+                    <tbody>
+                    {% for liste in listes %}
+                        <tr class= "dnd-moved info">
+
+                            <td>{{ liste.titre }}</td>
+                            <td>{{ liste.contenu ? liste.contenu|join(', ') : '' }}</td>
+                            {#<td>
+                                <a href="{{ path('liste_show', {'id': liste.id}) }}">show</a>
+                                <a href="{{ path('liste_edit', {'id': liste.id}) }}">edit</a>
+                            </td>#}
+                            <td>
+                                <a class="demo-google-material-icon" href="{{ path('liste_edit', {'id': liste.id}) }}">
+                                    <i style="cursor: pointer;" class="material-icons">edit</i>
+                                </a>
+                                <a class="demo-google-material-icon" href="{{ path('liste_show', {'id': liste.id}) }}">
+                                    <i style="cursor: pointer;" class="material-icons">description</i>
+                                </a></td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+        </div>
+    </div>
+
+   <!--<table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {#{% for liste in listes %}
+            <tr>
+                <td>{{ liste.id }}</td>
+                <td>{{ liste.titre }}</td>
+                <td>{{ liste.contenu ? liste.contenu|join(', ') : '' }}</td>
+                <td>
+                    <a href="{{ path('liste_show', {'id': liste.id}) }}">show</a>
+                    <a href="{{ path('liste_edit', {'id': liste.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}#}
+        </tbody>
+    </table>
+
+ {#   <a href="{{ path('liste_new') }}">Create new</a>#}-->
+    </div>
+{% endblock %}

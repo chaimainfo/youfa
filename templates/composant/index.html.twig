@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste des composants{% endblock %}
+
+{% block content %}
+
+    <div >
+        <div class="card">
+
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Liste des Composants</h4>
+                <a class="btn btn-info pull-right" href="{{ path('composant_new') }}"><i class="material-icons">person_add</i> <span class="icon-name">Nouveau Composant</span></a>
+                </span>
+
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover" class="table table-bordered table-hover">
+                    <thead class="text-warning1">
+                    <tr>
+
+                        <th>Nom</th>
+
+                        <th>Enabled</th>
+                        <th>Tableau</th>
+                        <th>Type</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for composant in composants %}
+                        <tr class= "dnd-moved info">
+                             <div class="tooltip"><td>{{ composant.nom }}</td>
+
+                                    <span class="tooltiptext">{%if composant.lastEditor%}{{ composant.lastEditor.login }}{% endif %}</span>
+
+                            </div>
+
+
+                            <td>{{ composant.enabled ? 'Yes' : 'No' }}</td>
+                            <td>
+                                {% for t in composant.typesTab %}{{ t.type }}<br>{% endfor %}</td>
+                            <td>{% if composant.type == 'nombre' %}chiffre{% else %}{{ composant.type }}{% endif %}</td>
+
+                            <td>
+                                <a class="demo-google-material-icon" href="{{ path('composant_show', {'id': composant.id}) }}">
+                                    <i style="cursor: pointer;" class="material-icons">description</i>
+                                </a>
+                                <a class="demo-google-material-icon" href="{{ path('composant_edit', {'id': composant.id}) }}">
+                                    <i style="cursor: pointer;" class="material-icons">edit</i>
+                                </a>
+                                <a class="demo-google-material-icon" href="{{ path('composant_delete', {'id': composant.id}) }}" onclick="return confirm('Etes-vous sur de vouloir supprimer cet article !')">
+                                    <i style="cursor: pointer;" class="material-icons">delete</i>
+                                </a>
+                                {# <a href="{{ path('composant_show', {'id': composant.id}) }}">show</a>
+                                 <a href="{{ path('composant_edit', {'id': composant.id}) }}">edit</a>
+                                 <a href="{{ path('composant_delete', {'id': composant.id}) }}">delete</a>#}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+

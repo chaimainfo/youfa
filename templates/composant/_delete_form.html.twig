@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('composant_delete', {'id': composant.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ composant.id) }}">
+    <button class="btn" onclick="return confirm('Etes-vous sur de vouloir supprimer cet article !')"> <i  style="cursor: pointer;" class="material-icons">delete</i></button>
+</form>

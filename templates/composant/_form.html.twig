@@ -1,0 +1,15 @@
+{{ form_start(form) }}
+{{ form_row(form.nom) }}
+{#{{ form_row(form.contenu) }}
+{{ form_row(form.enabled) }}#}
+{{ form_row(form.typesTab) }}
+<label> Type: </label><br>
+<input type="radio" name="type" value="text">Text<br>
+<input type="radio" name="type" value="nombre">Chiffre<br>
+<input type="radio" name="type" value="oui/non">Oui/Non<br>
+<input type="radio" name="type" value="email">Email<br>
+<input type="radio" name="type" value="telephone">Telephone<br>
+<input type="radio" name="type" value="liste">Liste<br>
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

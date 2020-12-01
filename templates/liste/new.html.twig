@@ -1,0 +1,32 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste index{% endblock %}
+
+{% block content %}
+    <div >
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title"> Create {{ liste.titre }} Liste</h4>
+
+            </div>
+            <div class="card-body table-responsive">
+
+                <form action="{{ path('liste_new',{'titre':liste.titre}) }}" method="post">
+
+
+                    {# {{ include('liste/_form.html.twig') }} #}
+                    <input type="text" value="{{ liste.titre }}" disabled><br>
+                    contenu :  <input type="text" name="content" placeholder="element1;element2;element3;..."> <label style="color: red">un ; entre les élément</label>
+                    <br><button class="btn" type="submit">save</button>
+                    <br>
+                    <a class="demo-google-material-icon" href="{{ path('liste_index') }}">
+                        <i style="cursor: pointer;" class="material-icons"> keyboard_backspace</i>
+                    </a>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

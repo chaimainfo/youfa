@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit DroitAccee{% endblock %}
+
+{% block body %}
+    <h1>Edit DroitAccee</h1>
+
+    <form method="post" action="{{ path('droit_accee_edit',{'id':id}) }}">
+
+        <input type="text" value="{{ droit_accee.titre }}" name="name"><br>
+        {% for cd in composantDejaCocher %}
+
+            <input type="checkbox" checked name="c[]" value="{{ cd.id }}">{{ cd.nom }}<BR>
+
+        {% endfor %}
+        {% for t in tabNonCocher %}
+
+            <input type="checkbox" name="c[]" value="{{ t.id }}"> {{ t.nom }} <br>
+
+        {% endfor %}
+        <button type="submit"> save edit</button>
+
+    </form>
+
+ {#   {{ include('droit_accee/_form.html.twig', {'button_label': 'Update'}) }}  #}
+
+    <a href="{{ path('droit_accee_index') }}">back to list</a>
+
+ {{ include('droit_accee/_delete_form.html.twig') }}
+{% endblock %}

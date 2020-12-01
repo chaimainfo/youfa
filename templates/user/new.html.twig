@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block content %}
+    <h1>Create new User</h1>
+
+    {{ include('user/_form.html.twig') }}
+
+
+    <a class="demo-google-material-icon" href="{{ path('user_index') }}">
+        <i style="cursor: pointer;" class="material-icons"> keyboard_backspace</i>
+    </a>
+{% endblock %}

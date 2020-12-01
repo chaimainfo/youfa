@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Composant{% endblock %}
+
+{% block content %}
+
+    <div>
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">Composant</h4>
+                <div class="profile-header" style="background-color: teal">
+                    <a style="color: inherit;" href="{{ path('composant_edit', {'id': composant.id}) }}">
+                        <i class="material-icons"
+                           style="color: white; background-color: black; border-radius: 50%; padding: 15px; position: absolute; right: 35px; top: 25px">edit</i>
+                    </a>
+                </div>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover" class="table table-bordered table-hover">
+
+                    <tbody>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ composant.nom }}</td>
+                    </tr>
+                    {# <tr>
+                         <th>Contenu</th>
+                         <td>{{ composant.contenu }}</td>
+                     </tr>#}
+                    <tr>
+                        <th>Type</th>
+                        <td>{{ composant.type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Tableau</th>
+                        <td>{% for t in composant.typesTab %}
+                                {{ t.type }}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <a class="demo-google-material-icon" href="{{ path('composant_index') }}">
+                    <i style="cursor: pointer;" class="material-icons"> keyboard_backspace</i>
+                </a>
+
+
+                {{ include('composant/_delete_form.html.twig') }}
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

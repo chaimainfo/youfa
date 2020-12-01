@@ -1,0 +1,39 @@
+
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div class="col-lg-6 col-md-12">
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title">{{ poste.nom }}</h4>
+                <!--<p class="card-category">New employees on 15th September, 2016</p>-->
+            </div>
+            <div class="card-body table-responsive">
+                <form action="{{ path('effectuer_edit',{'id':liste.id}) }}" method="post">
+
+                    {#  <h3>Choisissez un droit d'accee</h3><br>
+                      {% for d in droits %}
+                          {% if d==droit %}
+                              <input type="radio" name="droit" value="{{ d.id }}" checked>{{ d.titre }} <br>
+
+                          {% endif %}
+                      {% endfor %}#}
+                    <h3>Type de droit d'accee :</h3>
+                    <h5>{{ droit}}</h5>
+
+                    <h3>Liste Des Composants :</h3><br>
+                    {% for c in composants %}
+
+                        <input type="checkbox" name="comp[]" value="{{ c.nom }}">{{ c.nom }}<br>
+                    {% endfor %}
+                    <hr>
+                    <button class="btn" type="submit">edit</button><br>
+
+                    <a class="demo-google-material-icon" href="{{ path('poste_index') }}">
+                        <i style="cursor: pointer;" class="material-icons"> keyboard_backspace</i>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
